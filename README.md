@@ -24,4 +24,9 @@ https://towardsdatascience.com/another-twitter-sentiment-analysis-with-python-pa
 https://rare-technologies.com/doc2vec-tutorial/
 
 # Common Issues:
-Training on cpu for genesim faster than GPU for genesim.
+Training on cpu for genesim faster than GPU for genesim:
+https://rare-technologies.com/gensim-word2vec-on-cpu-faster-than-word2veckeras-on-gpu-incubator-student-blog/
+
+# Solution
+BlazingText Algorithm
+https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-blazingtext-parallelizing-word2vec-on-multiple-cpus-or-gpus/
