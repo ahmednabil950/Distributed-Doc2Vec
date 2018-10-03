@@ -4,6 +4,10 @@ Doc2Vec Project
 # Preprocessing
 
 ## Preprocessing toolbox
+clone the repository using
+```
+git clone https://github.com/ahmednabil950/Distributed-Doc2Vec
+```
 ```
 pip install -r requirements.txt
 ```
@@ -18,3 +22,6 @@ https://medium.com/scaleabout/a-gentle-introduction-to-doc2vec-db3e8c0cce5e
 https://radimrehurek.com/gensim/models/doc2vec.html
 https://towardsdatascience.com/another-twitter-sentiment-analysis-with-python-part-6-doc2vec-603f11832504
 https://rare-technologies.com/doc2vec-tutorial/
+
+# Common Issues:
+Training on cpu for genesim faster than GPU for genesim.
