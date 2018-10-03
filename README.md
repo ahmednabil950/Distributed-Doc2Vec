@@ -30,3 +30,8 @@ https://rare-technologies.com/gensim-word2vec-on-cpu-faster-than-word2veckeras-o
 # Solution
 BlazingText Algorithm
 https://aws.amazon.com/blogs/machine-learning/amazon-sagemaker-blazingtext-parallelizing-word2vec-on-multiple-cpus-or-gpus/
+
+# Concurrency on gensim
+https://rare-technologies.com/deep-learning-with-word2vec-and-gensim/
+https://rare-technologies.com/word2vec-in-python-part-two-optimizing/
+https://rare-technologies.com/parallelizing-word2vec-in-python/
