@@ -12,6 +12,13 @@ git clone https://github.com/ahmednabil950/Distributed-Doc2Vec
 pip install -r requirements.txt
 ```
 ## Guides | Instructions
+```
+1- construct each paragraph to be one line per each:
+2- convert all words to lower case
+3- remove punctuation
+4- remove stop words
+5- convert nummeric to words example: (1 should be one, 19 should be nine-teen).
+```
 * [stop words and noise removal useful ressources](https://www.analyticsvidhya.com/blog/2017/01/ultimate-guide-to-understand-implement-natural-language-processing-codes-in-python/)
 * [different-resources](https://github.com/igorbrigadir/stopwords)
 
