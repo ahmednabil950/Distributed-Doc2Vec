@@ -13,11 +13,11 @@ pip install -r requirements.txt
 ```
 ## Guides | Instructions
 ```
-1- construct each paragraph to be one line per each:
-2- convert all words to lower case
-3- remove punctuation
-4- remove stop words
-5- convert nummeric to words example: (1 should be one, 19 should be nine-teen).
+1. construct each paragraph to be one line per each:
+2. convert all words to lower case
+3. remove punctuation
+4. remove stop words
+5. convert nummeric to words example: (1 should be one, 19 should be nine-teen).
 ```
 * [stop words and noise removal useful ressources](https://www.analyticsvidhya.com/blog/2017/01/ultimate-guide-to-understand-implement-natural-language-processing-codes-in-python/)
 * [different-resources](https://github.com/igorbrigadir/stopwords)
@@ -29,6 +29,24 @@ pip install -r requirements.txt
 * [Data Cleaning](https://towardsdatascience.com/basic-data-cleaning-engineering-session-twitter-sentiment-data-95e5bd2869ec)
 
 # Training Doc2Vec Models
+## Guides | Instructions
+
+1. All files of the training corpus must resides in single directory to use the following class that construct iterator over each paragraph. It is easy to use ```gensim``` class ```gensim.models.doc2vec.PathLineSentences```, it takes the directory of the folder that contains the preprocessed training .txt files.
+If you have multiple directories then you have to construct ```gensim.models.doc2vec.PathLineSentences``` for each one of them and merge all of them at the end using ```list concatenation``` in pyhton.
+
+2. use ```gensim.models.doc2vec.TaggedDocument``` to tag each paragraph with its unique id.
+
+3. finally, you can start training on your data using ```gensim.models.doc2vec.Doc2Vec``` it takes the tagged documents in the constructor and another parameters like:
+```
+epochs
+vector_size: embeddings vector size (300 recommended for large corpus)
+alpha: initial learning rate
+windows: The maximum distance between the current and predicted word within a sentence.
+min_count: Ignores all words with total frequency lower than this.
+workers: Use these many worker threads to train the model (=faster training with multicore machines).
+dbow_words: ({1,0}) – If set to 1 trains word-vectors (in skip-gram fashion) simultaneous with DBOW doc-vector training; If 0, only trains doc-vectors (faster) and not for normal words2vec.
+```
+
 ## Resources
 * [Introduction to doc2vec](https://medium.com/scaleabout/a-gentle-introduction-to-doc2vec-db3e8c0cce5e)
 * [doc2vec | gensim](https://medium.com/@gofortargets/doc2vec-word2vec-in-gensim-c9321c780079)
