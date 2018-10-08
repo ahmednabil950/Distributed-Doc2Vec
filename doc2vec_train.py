@@ -63,10 +63,10 @@ if __name__ == '__main__':
     model.build_vocab(documents)
 
     t0 = time.time()
-    for ep in range(epochs):
-        print('training {} of {} .. '.format(ep, epochs))
-        model.train(documents=documents, total_examples=len(documents), epochs=model.iter)
-    # model.train(documents, total_examples=len(documents))
+    # for ep in range(epochs):
+    #     print('training {} of {} .. '.format(ep, epochs))
+    #     model.train(documents=documents, total_examples=len(documents), epochs=model.iter)
+    model.train(epochs=model.epochs, documents=documents, total_examples=len(documents))
     t1 = time.time()
 
     print("CPU training Time {}".format(t1-t0))
