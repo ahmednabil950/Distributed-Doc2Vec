@@ -54,7 +54,7 @@ if we have for example the following parameters for training:<br>
 * min_count = 5
 * epochs = 15
 ```
-python -p "/media/corpus_path/" -e 15 -c 5 -w 5 -v 300
+python doc2vec_train.py -p "/media/corpus_path/" -e 15 -c 5 -w 5 -v 300
 ```
 
 ## Resources
