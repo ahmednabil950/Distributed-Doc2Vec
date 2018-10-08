@@ -44,7 +44,7 @@ alpha: initial learning rate
 windows: The maximum distance between the current and predicted word within a sentence.
 min_count: Ignores all words with total frequency lower than this.
 workers: Use these many worker threads to train the model (=faster training with multicore machines).
-dbow_words: ({1,0}) – If set to 1 trains word-vectors (in skip-gram fashion) simultaneous with DBOW doc-vector training; If 0, only trains doc-vectors (faster) and not for normal words2vec.
+dm: ({1,0}) – 1 to train using CBOW and 0 to train using # PV-DBOW (skip gram fashion).
 ```
 
 ## Resources
