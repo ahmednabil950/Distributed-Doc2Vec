@@ -46,6 +46,16 @@ min_count: Ignores all words with total frequency lower than this.
 workers: Use these many worker threads to train the model (=faster training with multicore machines).
 dm: ({1,0}) – 1 to train using CBOW and 0 to train using # PV-DBOW (skip gram fashion).
 ```
+to start training using ```doc2vec_train.py``` script:<br>
+if we have for example the following parameters for training:<br>
+* vector_size = 300
+* negative = 5
+* window = 5
+* min_count = 5
+* epochs = 15
+```
+python -p `path to your training corpus` -e 15 -c 5 -w 5 -v 300
+```
 
 ## Resources
 * [Introduction to doc2vec](https://medium.com/scaleabout/a-gentle-introduction-to-doc2vec-db3e8c0cce5e)
