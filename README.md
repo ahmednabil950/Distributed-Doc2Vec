@@ -44,7 +44,17 @@ alpha: initial learning rate
 windows: The maximum distance between the current and predicted word within a sentence.
 min_count: Ignores all words with total frequency lower than this.
 workers: Use these many worker threads to train the model (=faster training with multicore machines).
-dbow_words: ({1,0}) – If set to 1 trains word-vectors (in skip-gram fashion) simultaneous with DBOW doc-vector training; If 0, only trains doc-vectors (faster) and not for normal words2vec.
+dm: ({1,0}) – 1 to train using CBOW and 0 to train using # PV-DBOW (skip gram fashion).
+```
+to start training using ```doc2vec_train.py``` script:<br>
+if we have for example the following parameters for training:<br>
+* path = "/media/corpus_path/"
+* vector_size = 300
+* window = 5
+* min_count = 5
+* epochs = 15
+```
+python -p "/media/corpus_path/" -e 15 -c 5 -w 5 -v 300
 ```
 
 ## Resources
