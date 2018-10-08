@@ -8,6 +8,7 @@ import config
 import time
 import argparse
 import sys
+import logging
 
 
 def extract_documents(corpus_path):
@@ -66,6 +67,7 @@ if __name__ == '__main__':
     # for ep in range(epochs):
     #     print('training {} of {} .. '.format(ep, epochs))
     #     model.train(documents=documents, total_examples=len(documents), epochs=model.iter)
+    logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
     model.train(epochs=model.epochs, documents=documents, total_examples=len(documents))
     t1 = time.time()
 
