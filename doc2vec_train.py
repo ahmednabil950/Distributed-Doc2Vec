@@ -4,7 +4,6 @@ from gensim.models.word2vec import PathLineSentences
 from sklearn.linear_model import LogisticRegression
 from random import shuffle, sample
 import os
-import config
 import time
 import argparse
 import sys
