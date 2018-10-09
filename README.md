@@ -38,7 +38,7 @@ If you have multiple directories then you have to construct ```gensim.models.doc
 
 3. finally, you can start training on your data using ```gensim.models.doc2vec.Doc2Vec``` it takes the tagged documents in the constructor and another parameters like:
 ```
-epochs
+epochs: number of the training pass.
 vector_size: embeddings vector size (300 recommended for large corpus)
 alpha: initial learning rate
 windows: The maximum distance between the current and predicted word within a sentence.
@@ -54,7 +54,7 @@ if we have for example the following parameters for training:<br>
 * min_count = 5
 * epochs = 15
 ```
-python -p "/media/corpus_path/" -e 15 -c 5 -w 5 -v 300
+python doc2vec_train.py -p "/media/corpus_path/" -e 15 -c 5 -w 5 -v 300
 ```
 
 ## Resources
