@@ -74,8 +74,8 @@ if __name__ == '__main__':
 
     print('saving the training result ..')
 
-    model.save_word2vec_format(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec_imdb.txt'))
+    model.save_word2vec_format(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec_imdb.txt'))
 
-    model.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec_imdb.bin'))
+    model.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec_imdb.bin'))
 
     # model = Doc2Vec.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec_imdb.bin'))
