@@ -74,8 +74,13 @@ if __name__ == '__main__':
 
     print('saving the training result ..')
 
-    model.save_word2vec_format(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.txt'))
-
-    model.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.bin'))
+    try:
+        model.save_word2vec_format(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.txt'))
+        model.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.bin'))
+    except FileNotFoundError as ex:
+        print('folder not found creating the folder ..')
+        os.makedirs(os.path.join(os.path.dirname(__file__), 'models'))
+        model.save_word2vec_format(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.txt'))
+        model.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.bin'))
 
     # model = Doc2Vec.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec_imdb.bin'))
