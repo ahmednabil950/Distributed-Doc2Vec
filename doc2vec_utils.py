@@ -5,7 +5,7 @@ from random import shuffle, sample
 from sklearn.metrics.pairwise import cosine_similarity
 
 import numpy as np
-import os
+import os, sys
 import argparse
 
 def extract_documents(corpus_path):
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     model = load_model('models\doc2vec.bin')
 
     ## to test the training result (may take a while to load large documents)
-    documents = extract_documents("corpus_path_is_here")
+    documents = extract_documents(sys.argv[1])
 
     ## write reported documents to the corpus
     most_similar_from_random(documents, model)
