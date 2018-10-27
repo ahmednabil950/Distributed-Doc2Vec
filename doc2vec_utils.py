@@ -43,7 +43,7 @@ def get_infered_vector(model, doc):
     return model.infer_vector(doc.split())
 
 def most_similar_from_random(documents, model):
-    file = os.path.join(os.path.abspath(__file__), 'result.txt')
+    file = 'result.txt'
     writer = open(file, 'w')
     doc_id = np.random.randint(model.docvecs.count)
     sims = model.docvecs.most_similar(doc_id, topn=model.docvecs.count)
@@ -57,6 +57,7 @@ if __name__ == '__main__':
 
     ## load the pre-trained model
     model = load_model('models\doc2vec.bin')
+    # model = load_model('models/doc2vec.bin')
 
     ## to test the training result (may take a while to load large documents)
     documents = extract_documents(sys.argv[1])
@@ -67,8 +68,10 @@ if __name__ == '__main__':
     ## load some test documents form files
     doc1 = open('test\doc1.txt').read()
     doc2 = open('test\doc2.txt').read()
+    # doc1 = open('test/doc1.txt').read()
+    # doc2 = open('test/doc2.txt').read()
 
     ## use cosine simililarity function
     sim = compute_similarity(model, doc1, doc2)
 
-    print(sim)
+    print("cosine similarity between doc1, doc2 is: ", sim[0])
