@@ -73,12 +73,19 @@ search can be made using:
 using sentence or keywords:
 ---------------------------
 python doc2vec_utils.py -c search -m kw -k spiderman batman -n 10
-
+```
+* -k: keywrods to be searched with
+* -n: top n similar documents
+```
 using paragraph in txt file:
 ---------------------------
 python doc2vec_utils.py -c search -m file -p FILEPATH -n TOPN
 ```
+* -p: path of the file contains the input paragraph to be searched with.
+* -n: top n similar documents
+
 ranked documents is printed in ```result.txt``` file ordered by document scores, and also printed out in the terminal<br>
+
 ## for similarity comparison:
 ```
 python doc2vec_utils.py -c compare
