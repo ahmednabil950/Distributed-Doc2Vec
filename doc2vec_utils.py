@@ -88,8 +88,8 @@ def search_by_keywords(model, keys, documents, top_n):
 if __name__ == '__main__':
     ## command line parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('-c', '--cmd', help='command (search | compare)')
-    parser.add_argument('-m', '--method', help='search method (keywords | document file')
+    parser.add_argument('-c', '--cmd', help='command (search | compare)', required=True)
+    parser.add_argument('-m', '--method', help='search method (keywords | document file', required=True)
     parser.add_argument('-k', '--keywords', help='keywords to be used as keys in search', nargs='+')
     parser.add_argument('-n', '--topn', help='the top most similar documents', default=5, type=int)
     parser.add_argument('-f', '--fpath', help='file to be searched with')
@@ -123,6 +123,9 @@ if __name__ == '__main__':
         ## use cosine simililarity function
         sim = compute_similarity(model, doc1, doc2)
         print(colored("cosine similarity between doc1, doc2 is: ", 'green'), sim[0])
+    elif parsed_args['cmd'] == 'random':
+        ## write reported documents to the corpus
+        most_similar_from_random(documents, model)
         
 
 
@@ -130,8 +133,7 @@ if __name__ == '__main__':
 
 
 
-    # ## write reported documents to the corpus
-    # most_similar_from_random(documents, model)
+
 
 
 
