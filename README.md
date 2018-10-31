@@ -57,6 +57,42 @@ if we have for example the following parameters for training:<br>
 python doc2vec_train.py -p "/media/corpus_path/" -e 15 -c 5 -w 5 -v 300
 ```
 
+## Testing the model
+some utility functions is added in order to search the corpus for similar documents.<br>
+this functions is accessed through command line parameters.
+search can be made using:
+* keywords
+* sentences
+* paragrpah in separate file.txt
+<br>
+ 
+####  Here is some examples:
+
+## for search:
+```
+using sentence or keywords:
+---------------------------
+python doc2vec_utils.py -c search -m kw -k spiderman batman -n 10
+```
+* -k: keywrods to be searched with
+* -n: top n similar documents
+```
+using paragraph in txt file:
+---------------------------
+python doc2vec_utils.py -c search -m file -p FILEPATH -n TOPN
+```
+* -p: path of the file contains the input paragraph to be searched with.
+* -n: top n similar documents
+
+ranked documents is printed in ```result.txt``` file ordered by document scores, and also printed out in the terminal<br>
+
+## for similarity comparison:
+```
+python doc2vec_utils.py -c compare
+```
+similarity comparison is made between two files resides in test dir
+
+
 ## Resources
 * [Introduction to doc2vec](https://medium.com/scaleabout/a-gentle-introduction-to-doc2vec-db3e8c0cce5e)
 * [doc2vec | gensim](https://medium.com/@gofortargets/doc2vec-word2vec-in-gensim-c9321c780079)
