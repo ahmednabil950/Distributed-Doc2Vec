@@ -46,9 +46,10 @@ if __name__ == '__main__':
     epochs = parsed_args['epoch']
 
     print('loading the training data ..')
-
+    t0 = time.time()
     documents = extract_documents(corpus_path)
-
+    t1 = time.time()
+    print("data loading Time {} min, {} sec".format(int((t1-t0) / 60), int(((t1-t0) - ((t1-t0) / 60)))))
     print("corpus sentences size: ", len(documents))
 
     # PV-DBOW
@@ -72,7 +73,7 @@ if __name__ == '__main__':
     model.train(epochs=model.epochs, documents=documents, total_examples=len(documents))
     t1 = time.time()
 
-    print("CPU training Time {}".format(t1-t0))
+    print("CPU training Time {} min, {} sec".format(int((t1-t0) / 60), int(((t1-t0) - ((t1-t0) / 60)))))
 
     print('saving the training result ..')
 
@@ -85,7 +86,7 @@ if __name__ == '__main__':
         with bin_format.open('wb') as f:
             model.save(f)
         with docs_pkl.open ('wb') as docf:
-            pkl.dump(documents, docf)
+            pkl.dump(documents, docf, protocol=pkl.HIGHEST_PROTOCOL)
     except FileNotFoundError as ex:
         print('folder not found creating the folder ..')
         os.makedirs(os.path.join(os.path.dirname(__file__), 'models'))
@@ -97,6 +98,4 @@ if __name__ == '__main__':
         with bin_format.open('wb') as f:
             model.save(f)
         with docs_pkl.open ('wb') as docf:
-            pkl.dump(documents, docf)
-
-    # model = Doc2Vec.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec_imdb.bin'))
+            pkl.dump(documents, docf, protocol=pkl.HIGHEST_PROTOCOL)
