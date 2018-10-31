@@ -3,16 +3,17 @@ from gensim.models.doc2vec import Doc2Vec
 from gensim.models.word2vec import PathLineSentences
 from random import shuffle, sample
 from sklearn.metrics.pairwise import cosine_similarity
-
+from termcolor import colored
+from pathlib import Path
+import pickle as pkl
 import numpy as np
 import os, sys
 import argparse
 
-def extract_documents(corpus_path):
-    sentence_corpus = PathLineSentences(corpus_path)
-
-    documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(sentence_corpus)]
-
+def extract_documents():
+    doc_path = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/tagged_docs.pickle'))
+    with doc_path.open('rb') as docf:
+        documents = pkl.load(docf)
     ## shuffle modify in place
     # return shuffle(documents)
     ## shuffle using sample
@@ -52,26 +53,86 @@ def most_similar_from_random(documents, model):
     for label, index in [('MOST', 0), ('MEDIAN', len(sims)//2), ('LEAST', len(sims) - 1)]:
         writer.write('{} {}:  <<{}>>\n'.format(label, sims[index], get_paragraph(documents, sims[index][0])))
 
+def search_by_keywords(model, keys, documents, top_n):
+    MAX_COL = 20
+    keys = [k.lower() for k in keys]
+    keys = [k for k in keys if k in model.wv.vocab]
+
+    if not len(keys):
+        print("NOT Found in the vocabulary !!\n try different keywords")
+        return "NOT Found in the vocabulary !!"
+
+    most_similar = model[keys]
+    doc_ids = [i[0] for i in model.docvecs.most_similar(most_similar, topn=top_n)]
+    doc_scores = [i[1] for i in model.docvecs.most_similar(most_similar, topn=top_n)]
+
+    assert len(doc_scores) == len(doc_ids), "must be equal in size."
+
+    writer = open('result.txt', 'w')
+    for i, s in zip(doc_ids, doc_scores):
+        writer.write('<< document id {} | score {} >>\n'.format(i, s))
+        writer.write('--'*30 + '\n')
+        print(" ".join(documents[i].words)); print('=='*50)
+        for j, token in enumerate(documents[i].words):
+            writer.write(token); writer.write(' ')
+            if j % MAX_COL == 0 and j != 0: 
+                writer.write('\n')
+        # writer.write('\n\n ### score: {} ###'.format(s))
+        writer.write('\n')
+        writer.write('=='*50); writer.write('\n')
+
+    return most_similar
+
+
 
 if __name__ == '__main__':
+    ## command line parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-c', '--cmd', help='command (search | compare)')
+    parser.add_argument('-m', '--method', help='search method (keywords | document file')
+    parser.add_argument('-k', '--keywords', help='keywords to be used as keys in search', nargs='+')
+    parser.add_argument('-n', '--topn', help='the top most similar documents', default=5, type=int)
+    parser.add_argument('-f', '--fpath', help='file to be searched with')
+    args = parser.parse_args(sys.argv[1:])
+    parsed_args = dict(args._get_kwargs())
 
     ## load the pre-trained model
-    model = load_model('models\doc2vec.bin')
-    # model = load_model('models/doc2vec.bin')
+    # model = load_model('models\doc2vec.bin')
+    model = load_model('models/doc2vec.bin')
 
-    ## to test the training result (may take a while to load large documents)
-    documents = extract_documents(sys.argv[1])
 
-    ## write reported documents to the corpus
-    most_similar_from_random(documents, model)
+    if parsed_args['cmd'] == 'search':
+        ## to test the training result (may take a while to load large documents)
+        documents = extract_documents()
+        if parsed_args['method'] == 'kw':
+            search_by_keywords(model, parsed_args['keywords'], documents, top_n=parsed_args['topn'])
+        elif parsed_args['method'] == 'file':
+            try:
+                with open(parsed_args['fpath'], 'r') as f:
+                    keywords = f.read().split()
+                    search_by_keywords(model, keywords, documents, top_n=parsed_args['topn'])
+            except FileNotFoundError as ex:
+                print(ex)
+    elif parsed_args['cmd'] == 'compare':
+        ## comparison logic is here
+        ## load some test documents form files
+        # doc1 = open('test\doc1.txt').read()
+        # doc2 = open('test\doc2.txt').read()
+        doc1 = open('test/doc1.txt').read()
+        doc2 = open('test/doc2.txt').read()
+        ## use cosine simililarity function
+        sim = compute_similarity(model, doc1, doc2)
+        print(colored("cosine similarity between doc1, doc2 is: ", 'green'), sim[0])
+        
 
-    ## load some test documents form files
-    doc1 = open('test\doc1.txt').read()
-    doc2 = open('test\doc2.txt').read()
-    # doc1 = open('test/doc1.txt').read()
-    # doc2 = open('test/doc2.txt').read()
 
-    ## use cosine simililarity function
-    sim = compute_similarity(model, doc1, doc2)
 
-    print("cosine similarity between doc1, doc2 is: ", sim[0])
+
+
+
+    # ## write reported documents to the corpus
+    # most_similar_from_random(documents, model)
+
+
+
+   
