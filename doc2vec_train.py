@@ -1,8 +1,9 @@
 from gensim.models.doc2vec import TaggedDocument
 from gensim.models.doc2vec import Doc2Vec
 from gensim.models.word2vec import PathLineSentences
-from sklearn.linear_model import LogisticRegression
 from random import shuffle, sample
+from pathlib import Path
+import pickle as pkl
 import os
 import time
 import argparse
@@ -58,6 +59,7 @@ if __name__ == '__main__':
         min_count=min_count,
         workers=4,
         alpha=0.025, min_alpha=0.025,
+        epochs = epochs
     )
 
     model.build_vocab(documents)
@@ -75,12 +77,26 @@ if __name__ == '__main__':
     print('saving the training result ..')
 
     try:
-        model.save_word2vec_format(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.txt'))
-        model.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.bin'))
+        txt_format = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec.txt'))
+        bin_format = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec.bin'))
+        docs_pkl   = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/tagged_docs.pickle'))
+        with txt_format.open('wb') as f:
+            model.save_word2vec_format(f)
+        with bin_format.open('wb') as f:
+            model.save(f)
+        with docs_pkl.open ('wb') as docf:
+            pkl.dump(documents, docf)
     except FileNotFoundError as ex:
         print('folder not found creating the folder ..')
         os.makedirs(os.path.join(os.path.dirname(__file__), 'models'))
-        model.save_word2vec_format(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.txt'))
-        model.save(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models\doc2vec.bin'))
+        txt_format = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec.txt'))
+        bin_format = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec.bin'))
+        docs_pkl   = Path(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/tagged_docs.pickle'))
+        with txt_format.open('wb') as f:
+            model.save_word2vec_format(f)
+        with bin_format.open('wb') as f:
+            model.save(f)
+        with docs_pkl.open ('wb') as docf:
+            pkl.dump(documents, docf)
 
     # model = Doc2Vec.load(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/doc2vec_imdb.bin'))
