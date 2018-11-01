@@ -84,7 +84,7 @@ if __name__ == '__main__':
         with txt_format.open('wb') as f:
             model.save_word2vec_format(f)
         with bin_format.open('wb') as f:
-            model.save(f)
+            model.save(f, pickle_protocol=pkl.HIGHEST_PROTOCOL)
         with docs_pkl.open ('wb') as docf:
             pkl.dump(documents, docf, protocol=pkl.HIGHEST_PROTOCOL)
     except FileNotFoundError as ex:
@@ -96,6 +96,6 @@ if __name__ == '__main__':
         with txt_format.open('wb') as f:
             model.save_word2vec_format(f)
         with bin_format.open('wb') as f:
-            model.save(f)
+            model.save(f, pickle_protocol=pkl.HIGHEST_PROTOCOL)
         with docs_pkl.open ('wb') as docf:
             pkl.dump(documents, docf, protocol=pkl.HIGHEST_PROTOCOL)
