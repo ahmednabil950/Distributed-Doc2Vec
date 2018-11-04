@@ -9,12 +9,15 @@ import time
 import argparse
 import sys
 import logging
-
+from pathlib import Path
 
 def extract_documents(corpus_path):
     sentence_corpus = PathLineSentences(corpus_path)
-
-    documents = [TaggedDocument(doc, [i]) for i, doc in enumerate(sentence_corpus)]
+    
+    documents = [
+            TaggedDocument(doc, [Path(tag).name]) for tag, doc in zip(sentence_corpus.input_files, 
+            sentence_corpus)
+        ]
 
     ## shuffle modify in place
     # return shuffle(documents)
