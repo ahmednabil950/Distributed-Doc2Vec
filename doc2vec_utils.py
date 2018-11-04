@@ -68,12 +68,14 @@ def search_by_keywords(model, keys, documents, top_n):
 
     assert len(doc_scores) == len(doc_ids), "must be equal in size."
 
+    documents = {k: v for k, v in [(d.tags[0], d.words) for d in documents]}
+
     writer = open('result.txt', 'w')
     for i, s in zip(doc_ids, doc_scores):
         writer.write('<< document id {} | score {} >>\n'.format(i, s))
         writer.write('--'*30 + '\n')
-        print(" ".join(documents[i].words)); print('=='*50)
-        for j, token in enumerate(documents[i].words):
+        print(" ".join(documents[i])); print('=='*50)
+        for j, token in enumerate(documents[i]):
             writer.write(token); writer.write(' ')
             if j % MAX_COL == 0 and j != 0: 
                 writer.write('\n')
